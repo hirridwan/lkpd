@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +20,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Paksa HTTPS agar tidak "Mixed Content" saat pakai Cloudflare Tunnel
+        if (config('app.env') === 'production' || env('FORCE_HTTPS', true)) {
+            URL::forceScheme('https');
+        }
     }
 }
