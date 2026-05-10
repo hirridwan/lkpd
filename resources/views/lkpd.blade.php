@@ -157,11 +157,11 @@
 
     <div class="info-card">
         <div class="input-group">
-            <label>Nama Peserta Didik</label>
+            <label>Nama Peserta Didik / Nama Kelompok</label>
             <input type="text" id="student-name" placeholder="Ketik nama lengkap...">
         </div>
         <div class="input-group">
-            <label>Kelas / No. Absen</label>
+            <label>NISN / NIM</label>
             <input type="text" id="student-class" placeholder="Contoh: X-1 / 01">
         </div>
         <div class="input-group">
