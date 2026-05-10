@@ -259,6 +259,12 @@
         <i class="fa-solid fa-paper-plane"></i> KIRIM LAPORAN KE GURU
     </button>
     <footer>© 2026 Ridwan Maulana, S.Kom. | SMAN 1 Bandung</footer>
+
+    <div style="text-align: center; margin-bottom: 20px;">
+    <a href="{{ route('sorting.simulation') }}" class="btn-verify" style="text-decoration: none; display: inline-flex; background: var(--accent);">
+        <i class="fa-solid fa-play"></i> Buka Simulasi Visual
+    </a>
+</div>
 </div>
 
 <script>
