@@ -71,39 +71,45 @@
             display: flex;
             align-items: flex-end;
             justify-content: center;
-            height: 300px;
+            height: 350px; 
             width: 100%;
-            max-width: 800px;
+            max-width: 1050px; /* Lebar container ditambah agar orang tidak meluber */
             background-color: white;
-            padding: 40px 20px 20px 20px; /* Padding atas ditambah untuk ruang kepala */
+            padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            gap: 10px; /* Jarak antar orang sedikit dilebarkan */
+            gap: 10px; /* Jarak sedikit dirapatkan */
         }
 
-        .bar {
-            width: 35px; /* Disesuaikan agar proporsional sebagai badan */
-            background-color: #3498db;
-            color: white;
+        /* Kontainer untuk satu 'orang' */
+        .person {
             display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            padding-bottom: 10px;
-            font-weight: bold;
-            border-radius: 15px 15px 0 0; /* Bentuk bahu melengkung */
-            transition: height 0.2s ease, background-color 0.2s ease;
-            position: relative; /* Dibutuhkan untuk memposisikan kepala */
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end; 
+            transition: transform 0.2s ease; 
         }
 
-        /* Elemen tambahan untuk kepala orang */
-        .bar::before {
-            content: '';
-            position: absolute;
-            top: -30px;
-            width: 24px;
-            height: 24px;
-            background-color: inherit; /* Warna kepala otomatis mengikuti warna badan */
-            border-radius: 50%;
+        /* Gambar Siluet */
+        .person-img {
+            background-color: #3498db; 
+            -webkit-mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath d='M112 48a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm40 304V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V256.9L59.4 304.5c-9.1 15.1-28.8 20-43.9 10.9s-20-28.8-10.9-43.9l58.3-97c17.4-28.9 48.6-46.6 82.3-46.6h29.7c33.7 0 64.9 17.7 82.3 46.6l58.3 97c9.1 15.1 4.2 34.8-10.9 43.9s-34.8 4.2-43.9-10.9L232 256.9V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V352H152z'/%3E%3C/svg%3E");
+            mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath d='M112 48a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm40 304V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V256.9L59.4 304.5c-9.1 15.1-28.8 20-43.9 10.9s-20-28.8-10.9-43.9l58.3-97c17.4-28.9 48.6-46.6 82.3-46.6h29.7c33.7 0 64.9 17.7 82.3 46.6l58.3 97c9.1 15.1 4.2 34.8-10.9 43.9s-34.8 4.2-43.9-10.9L232 256.9V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V352H152z'/%3E%3C/svg%3E");
+            -webkit-mask-size: 100% 100%;
+            mask-size: 100% 100%;
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-position: bottom center;
+            mask-position: bottom center;
+            transition: background-color 0.2s ease; 
+        }
+
+        /* Label Tinggi Badan (cm) */
+        .person-height {
+            margin-top: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #2c3e50;
         }
 
         .legend {
@@ -114,19 +120,30 @@
             padding: 10px 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 1050px; /* Disesuaikan dengan container */
+            justify-content: center;
         }
 
         .legend-item {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
             font-size: 14px;
         }
 
-        .box {
+        .legend-box-person {
             width: 15px;
-            height: 15px;
-            border-radius: 3px;
+            height: 30px;
+            background-color: inherit; 
+            -webkit-mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath d='M112 48a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm40 304V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V256.9L59.4 304.5c-9.1 15.1-28.8 20-43.9 10.9s-20-28.8-10.9-43.9l58.3-97c17.4-28.9 48.6-46.6 82.3-46.6h29.7c33.7 0 64.9 17.7 82.3 46.6l58.3 97c9.1 15.1 4.2 34.8-10.9 43.9s-34.8 4.2-43.9-10.9L232 256.9V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V352H152z'/%3E%3C/svg%3E");
+            mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath d='M112 48a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm40 304V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V256.9L59.4 304.5c-9.1 15.1-28.8 20-43.9 10.9s-20-28.8-10.9-43.9l58.3-97c17.4-28.9 48.6-46.6 82.3-46.6h29.7c33.7 0 64.9 17.7 82.3 46.6l58.3 97c9.1 15.1 4.2 34.8-10.9 43.9s-34.8 4.2-43.9-10.9L232 256.9V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V352H152z'/%3E%3C/svg%3E");
+            -webkit-mask-size: contain;
+            mask-size: contain;
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-position: center;
+            mask-position: center;
         }
 
         #info-panel {
@@ -135,8 +152,20 @@
             padding: 15px;
             border-left: 5px solid #3498db;
             border-radius: 0 5px 5px 0;
-            max-width: 800px;
+            max-width: 1050px; /* Disesuaikan dengan container */
             display: none;
+            width: 100%;
+        }
+
+        /* Penjelasan Tambahan untuk Anak SMA */
+        #penjelasan-algoritma {
+            margin-top: 20px;
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 1000px; /* Disesuaikan agar sejajar */
         }
         
         .slider-container {
@@ -154,7 +183,7 @@
 <body>
 
     <h1>Visualisasi Sorting</h1>
-    <p class="description">Mari amati bagaimana komputer membandingkan dan memindahkan data!</p>
+    <p class="description">Mari amati bagaimana komputer membandingkan dan mengurutkan orang berdasarkan tinggi badan!</p>
 
     <div class="controls">
         <button class="btn-generate" onclick="generateArray()" id="btn-gen">Acak Data Baru</button>
@@ -173,15 +202,40 @@
     <div id="container"></div>
 
     <div class="legend">
-        <div class="legend-item"><div class="box" style="background-color: #3498db;"></div> Belum Terurut</div>
-        <div class="legend-item"><div class="box" style="background-color: #e74c3c;"></div> Sedang Dibandingkan</div>
-        <div class="legend-item"><div class="box" style="background-color: #f1c40f;"></div> Target / Terkecil</div>
-        <div class="legend-item"><div class="box" style="background-color: #2ecc71;"></div> Sudah Terurut</div>
+        <div class="legend-item"><div class="legend-box-person" style="background-color: #3498db;"></div> Belum Terurut</div>
+        <div class="legend-item"><div class="legend-box-person" style="background-color: #e74c3c;"></div> Sedang Dibandingkan</div>
+        <div class="legend-item"><div class="legend-box-person" style="background-color: #f1c40f;"></div> Target / Terkecil</div>
+        <div class="legend-item"><div class="legend-box-person" style="background-color: #2ecc71;"></div> Sudah Terurut</div>
     </div>
 
     <div id="info-panel">
         <h3 id="info-title" style="margin-top:0;"></h3>
         <p id="info-text" style="margin-bottom:0; line-height: 1.5;"></p>
+    </div>
+
+    <div id="penjelasan-algoritma">
+        <h2 style="color: #2c3e50; margin-top: 0; margin-bottom: 15px; font-size: 22px; border-bottom: 2px solid #ecf0f1; padding-bottom: 10px;">Penjelasan Algoritma (Bahasa Simpel)</h2>
+        
+        <div style="margin-bottom: 20px;">
+            <h4 style="color: #d35400; margin: 0 0 5px 0; font-size: 16px;">1. Bubble Sort (Sortir Gelembung)</h4>
+            <p style="margin: 0; color: #555; line-height: 1.6; font-size: 15px;">
+                Bayangkan gelembung udara yang naik ke permukaan air. Cara kerjanya: bandingkan dua orang bersebelahan. Kalau orang di kiri lebih tinggi dari yang kanan, mereka <b>bertukar posisi</b>. Terus digeser ke kanan sampai orang yang paling tinggi "mengapung" ke ujung paling akhir. Ulangi lagi dari awal untuk sisa barisannya.
+            </p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <h4 style="color: #2980b9; margin: 0 0 5px 0; font-size: 16px;">2. Selection Sort (Sortir Pilihan)</h4>
+            <p style="margin: 0; color: #555; line-height: 1.6; font-size: 15px;">
+                Kayak lagi milih orang untuk masuk tim baris-berbaris. Cara kerjanya: dari barisan yang acak, komputer <b>mencari satu orang yang paling pendek</b>. Setelah ketemu, orang tersebut langsung disuruh pindah ke ujung paling kiri barisan. Habis itu, cari lagi orang terpendek kedua dari sisa orang yang ada, dan ditaruh di sebelahnya. Begitu seterusnya.
+            </p>
+        </div>
+
+        <div>
+            <h4 style="color: #27ae60; margin: 0 0 5px 0; font-size: 16px;">3. Insertion Sort (Sortir Sisipan)</h4>
+            <p style="margin: 0; color: #555; line-height: 1.6; font-size: 15px;">
+                Persis seperti caramu mengurutkan kartu remi di tangan! Cara kerjanya: anggap orang pertama sudah di posisi yang benar. Lalu ambil orang kedua, dan <b>sisipkan</b> ia ke posisi yang pas di sebelah kirinya. Ambil orang ketiga, sisipkan lagi ke posisi yang tepat di antara barisan kiri yang sudah rapi. Begitu terus sampai semuanya masuk barisan.
+            </p>
+        </div>
     </div>
 
 <script>
@@ -203,12 +257,25 @@
         enableButtons();
         
         for (let i = 0; i < size; i++) {
-            const value = Math.floor(Math.random() * 80) + 15; 
-            const bar = document.createElement('div');
-            bar.classList.add('bar');
-            bar.style.height = `${value * 2.5}px`;
-            bar.innerHTML = value;
-            container.appendChild(bar);
+            const value = Math.floor(Math.random() * 61) + 140; 
+
+            const person = document.createElement('div');
+            person.classList.add('person');
+            person.dataset.height = value; 
+
+            const img = document.createElement('div');
+            img.classList.add('person-img');
+            // PENGUBAHAN: Skala dikecilkan sedikit agar muat di dalam container yang baru
+            img.style.height = `${value * 1.1}px`; 
+            img.style.width = `${value * 0.4}px`; 
+
+            const span = document.createElement('span');
+            span.classList.add('person-height');
+            span.innerHTML = `${value} cm`;
+
+            person.appendChild(img);
+            person.appendChild(span);
+            container.appendChild(person);
         }
     }
 
@@ -230,102 +297,122 @@
         infoPanel.style.display = 'block';
         if(algo === 'bubble') {
             infoTitle.innerText = 'Mekanisme Bubble Sort';
-            infoText.innerText = 'Mengecek dua data bersebelahan dari kiri ke kanan. Jika data di kiri lebih besar dari kanan, mereka ditukar (warna merah). Angka terbesar akan perlahan "mengapung" ke sisi paling kanan (warna hijau).';
+            infoText.innerText = 'Mengecek dua orang bersebelahan dari kiri ke kanan. Jika orang di kiri lebih tinggi dari kanan, mereka bertukar posisi (warna merah). Orang tertinggi akan perlahan "mengapung" ke posisi paling kanan (warna hijau).';
         } else if(algo === 'selection') {
             infoTitle.innerText = 'Mekanisme Selection Sort';
-            infoText.innerText = 'Mencari angka paling kecil di antara data yang belum terurut (ditandai warna kuning). Setelah ketemu, angka kecil tersebut ditukar ke posisi paling depan dari kelompok yang belum terurut.';
+            infoText.innerText = 'Mencari orang paling pendek di antara yang belum terurut (ditandai warna kuning). Setelah ketemu, orang pendek tersebut ditukar ke posisi paling depan dari kelompok yang belum terurut.';
         } else if(algo === 'insertion') {
             infoTitle.innerText = 'Mekanisme Insertion Sort';
-            infoText.innerText = 'Mengambil satu angka, lalu menyisipkannya ke posisi yang tepat di sebelah kirinya yang sudah dianggap terurut. Mirip seperti cara kita mengurutkan kartu remi di tangan.';
+            infoText.innerText = 'Mengambil satu orang, lalu menyisipkannya ke posisi yang tepat di sebelah kirinya yang sudah dianggap terurut. Mirip seperti cara kita mengurutkan kartu remi di tangan.';
         }
     }
 
+    function getPersonImg(el) { return el.querySelector('.person-img'); }
+
     async function bubbleSort() {
-        let bars = document.querySelectorAll('.bar');
-        for (let i = 0; i < bars.length - 1; i++) {
-            for (let j = 0; j < bars.length - i - 1; j++) {
-                bars[j].style.backgroundColor = '#e74c3c'; 
-                bars[j+1].style.backgroundColor = '#e74c3c';
+        let people = document.querySelectorAll('.person');
+        for (let i = 0; i < people.length - 1; i++) {
+            for (let j = 0; j < people.length - i - 1; j++) {
+                people = document.querySelectorAll('.person');
+                let person1 = people[j];
+                let person2 = people[j+1];
+
+                getPersonImg(person1).style.backgroundColor = '#e74c3c'; 
+                getPersonImg(person2).style.backgroundColor = '#e74c3c';
                 await sleep(delay);
 
-                let val1 = parseInt(bars[j].innerHTML);
-                let val2 = parseInt(bars[j+1].innerHTML);
+                let val1 = parseInt(person1.dataset.height);
+                let val2 = parseInt(person2.dataset.height);
 
                 if (val1 > val2) {
-                    let tempHeight = bars[j].style.height;
-                    bars[j].style.height = bars[j+1].style.height;
-                    bars[j+1].style.height = tempHeight;
-                    
-                    bars[j].innerHTML = val2;
-                    bars[j+1].innerHTML = val1;
+                    container.insertBefore(person2, person1); 
                 }
-                bars[j].style.backgroundColor = '#3498db'; 
-                bars[j+1].style.backgroundColor = '#3498db';
+
+                people = document.querySelectorAll('.person');
+                getPersonImg(people[j]).style.backgroundColor = '#3498db'; 
+                getPersonImg(people[j+1]).style.backgroundColor = '#3498db';
             }
-            bars[bars.length - 1 - i].style.backgroundColor = '#2ecc71'; 
+            getPersonImg(document.querySelectorAll('.person')[people.length - 1 - i]).style.backgroundColor = '#2ecc71'; 
         }
-        bars[0].style.backgroundColor = '#2ecc71';
+        getPersonImg(document.querySelectorAll('.person')[0]).style.backgroundColor = '#2ecc71';
     }
 
     async function selectionSort() {
-        let bars = document.querySelectorAll('.bar');
-        for (let i = 0; i < bars.length; i++) {
+        let people = document.querySelectorAll('.person');
+        for (let i = 0; i < people.length; i++) {
+            let people = document.querySelectorAll('.person'); 
             let min_idx = i;
-            bars[min_idx].style.backgroundColor = '#f1c40f'; 
+            getPersonImg(people[min_idx]).style.backgroundColor = '#f1c40f'; 
             
-            for (let j = i + 1; j < bars.length; j++) {
-                bars[j].style.backgroundColor = '#e74c3c'; 
+            for (let j = i + 1; j < people.length; j++) {
+                getPersonImg(people[j]).style.backgroundColor = '#e74c3c'; 
                 await sleep(delay);
 
-                let valMin = parseInt(bars[min_idx].innerHTML);
-                let valCur = parseInt(bars[j].innerHTML);
+                let valMin = parseInt(people[min_idx].dataset.height);
+                let valCur = parseInt(people[j].dataset.height);
 
                 if (valCur < valMin) {
-                    if (min_idx !== i) bars[min_idx].style.backgroundColor = '#3498db'; 
+                    if (min_idx !== i) getPersonImg(people[min_idx]).style.backgroundColor = '#3498db'; 
                     min_idx = j;
-                    bars[min_idx].style.backgroundColor = '#f1c40f'; 
+                    getPersonImg(people[min_idx]).style.backgroundColor = '#f1c40f'; 
                 } else {
-                    bars[j].style.backgroundColor = '#3498db';
+                    getPersonImg(people[j]).style.backgroundColor = '#3498db';
                 }
             }
 
-            let tempHeight = bars[min_idx].style.height;
-            let tempVal = bars[min_idx].innerHTML;
-            bars[min_idx].style.height = bars[i].style.height;
-            bars[min_idx].innerHTML = bars[i].innerHTML;
-            bars[i].style.height = tempHeight;
-            bars[i].innerHTML = tempVal;
+            if (min_idx !== i) {
+                let person1 = people[min_idx];
+                let person2 = people[i];
+                let img1 = getPersonImg(person1);
+                let img2 = getPersonImg(person2);
+                
+                let tempImgHeight = img1.style.height;
+                let tempImgWidth = img1.style.width;
+                let tempVal = person1.dataset.height;
+                
+                img1.style.height = img2.style.height;
+                img1.style.width = img2.style.width;
+                person1.dataset.height = person2.dataset.height;
+                person1.querySelector('.person-height').innerHTML = `${person2.dataset.height} cm`;
+                
+                img2.style.height = tempImgHeight;
+                img2.style.width = tempImgWidth;
+                person2.dataset.height = tempVal;
+                person2.querySelector('.person-height').innerHTML = `${tempVal} cm`;
+            }
 
-            bars[min_idx].style.backgroundColor = '#3498db';
-            bars[i].style.backgroundColor = '#2ecc71'; 
+            let sortedPeople = document.querySelectorAll('.person'); 
+            getPersonImg(sortedPeople[min_idx]).style.backgroundColor = '#3498db';
+            getPersonImg(sortedPeople[i]).style.backgroundColor = '#2ecc71'; 
         }
     }
 
     async function insertionSort() {
-        let bars = document.querySelectorAll('.bar');
-        bars[0].style.backgroundColor = '#2ecc71'; 
+        let people = document.querySelectorAll('.person');
+        getPersonImg(people[0]).style.backgroundColor = '#2ecc71'; 
 
-        for (let i = 1; i < bars.length; i++) {
+        for (let i = 1; i < people.length; i++) {
+            let people = document.querySelectorAll('.person');
             let j = i;
-            bars[j].style.backgroundColor = '#f1c40f'; 
+            getPersonImg(people[j]).style.backgroundColor = '#f1c40f'; 
             await sleep(delay);
 
-            while (j > 0 && parseInt(bars[j - 1].innerHTML) > parseInt(bars[j].innerHTML)) {
-                bars[j].style.backgroundColor = '#e74c3c'; 
-                bars[j-1].style.backgroundColor = '#e74c3c';
+            while (j > 0 && parseInt(document.querySelectorAll('.person')[j - 1].dataset.height) > parseInt(document.querySelectorAll('.person')[j].dataset.height)) {
+                people = document.querySelectorAll('.person');
+                let person1 = people[j];
+                let person2 = people[j-1];
+
+                getPersonImg(person1).style.backgroundColor = '#e74c3c'; 
+                getPersonImg(person2).style.backgroundColor = '#e74c3c';
                 await sleep(delay);
 
-                let tempHeight = bars[j].style.height;
-                let tempVal = bars[j].innerHTML;
-                bars[j].style.height = bars[j-1].style.height;
-                bars[j].innerHTML = bars[j-1].innerHTML;
-                bars[j-1].style.height = tempHeight;
-                bars[j-1].innerHTML = tempVal;
-
-                bars[j].style.backgroundColor = '#2ecc71'; 
+                container.insertBefore(person1, person2); 
+                
+                people = document.querySelectorAll('.person');
+                getPersonImg(people[j]).style.backgroundColor = '#2ecc71'; 
                 j--;
             }
-            bars[j].style.backgroundColor = '#2ecc71'; 
+            getPersonImg(document.querySelectorAll('.person')[j]).style.backgroundColor = '#2ecc71'; 
         }
     }
 
