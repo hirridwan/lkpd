@@ -17,6 +17,7 @@
             --accent: #3b82f6;
             --success: #10b981;
             --error: #ef4444;
+            --warning: #f59e0b;
             --text-main: #334155;
             --text-muted: #64748b;
         }
@@ -45,6 +46,18 @@
         }
 
         header h1 { font-family: 'Poppins'; font-size: 32px; margin: 0; letter-spacing: -1px; }
+
+        /* Penambahan Style Dashboard Statistik */
+        .stats-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: white; padding: 20px; border-radius: 16px; border: 1px solid #e2e8f0; text-align: center; display: flex; flex-direction: column; justify-content: center; }
+        .stat-card h3 { font-size: 13px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 10px; font-weight: 700; }
+        .stat-value { font-size: 42px; font-weight: 700; color: var(--accent); font-family: 'Poppins'; }
+        
+        .leaderboard-card { background: white; padding: 20px; border-radius: 16px; border: 1px solid #e2e8f0; }
+        .leaderboard-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        .leaderboard-table th { text-align: left; padding: 10px; color: var(--text-muted); border-bottom: 2px solid #f1f5f9; text-transform: uppercase; }
+        .leaderboard-table td { padding: 10px; border-bottom: 1px solid #f1f5f9; }
+        .rank-badge { background: var(--warning); color: white; padding: 2px 8px; border-radius: 6px; font-weight: 700; font-size: 11px; }
 
         .info-card {
             background: var(--card-bg);
@@ -111,6 +124,22 @@
         <h1>🔍 LKPD Digital: Detektif Algoritma</h1>
         <p>Informatika Kelas X | SMAN 1 Bandung</p>
     </header>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>Rata-rata Akurasi Kelas</h3>
+            <div class="stat-value" id="avg-class">0%</div>
+            <p style="font-size: 11px; color: var(--text-muted); margin-top: 10px;">Berdasarkan misi yang diselesaikan</p>
+        </div>
+        <div class="leaderboard-card">
+            <table class="leaderboard-table">
+                <thead><tr><th>Rank</th><th>Nama</th><th>Misi Selesai</th><th>Akurasi</th></tr></thead>
+                <tbody id="leaderboard-body">
+                    <tr><td colspan="4" style="text-align:center; padding:15px;">Menunggu data dari server...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <div class="info-card">
         <div class="input-group">
@@ -211,6 +240,31 @@
 
 <script>
     let selectedEmoji = "";
+
+    // PENAMBAHAN: Load Stats saat halaman terbuka
+    window.onload = loadStats;
+
+    async function loadStats() {
+        try {
+            const response = await fetch("{{ route('sorting.stats') }}");
+            const data = await response.json();
+            
+            // Tampilkan rata-rata akurasi kelas
+            document.getElementById('avg-class').innerText = data.rata_rata_kelas + "%";
+            
+            // Tampilkan Leaderboard Top 5
+            const body = document.getElementById('leaderboard-body');
+            body.innerHTML = data.leaderboard.map((s, i) => `
+                <tr>
+                    <td><span class="rank-badge">#${i+1}</span></td>
+                    <td><b>${s.nama}</b></td>
+                    <td>${s.total_benar}/3</td>
+                    <td>${s.akurasi}%</td>
+                </tr>
+            `).join('');
+        } catch (e) { console.error("Gagal memuat statistik"); }
+    }
+
     function setEmoji(el, label) { 
         document.querySelectorAll('.emoji-item').forEach(e => e.classList.remove('active')); 
         el.classList.add('active'); 
@@ -272,6 +326,8 @@
             });
             const result = await response.json();
             alert(result.message);
+            // Refresh statistik setelah pengiriman
+            loadStats();
         } catch (error) { alert("Gagal terhubung ke server!"); }
     }
 </script>
