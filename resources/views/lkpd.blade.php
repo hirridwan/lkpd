@@ -243,9 +243,9 @@
                 <span>😕</span>
                 <span class="emoji-label">Bingung</span>
             </div>
-            <div class="emoji-item" onclick="setEmoji(this, 'Biasa')">
+            <div class="emoji-item" onclick="setEmoji(this, 'Pengen Belajar Lagi')">
                 <span>😐</span>
-                <span class="emoji-label">Biasa</span>
+                <span class="emoji-label">Pengen Belajar Lagi</span>
             </div>
             <div class="emoji-item" onclick="setEmoji(this, 'Paham')">
                 <span>😄</span>
